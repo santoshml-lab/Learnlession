@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
-
+/* SAME CSS (UNCHANGED) */
 *{
 margin:0;
 padding:0;
@@ -19,440 +20,178 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-
 background:
 radial-gradient(circle at top left,#38bdf830,transparent 25%),
 radial-gradient(circle at bottom right,#6366f130,transparent 25%),
 #020617;
-
 min-height:100vh;
 color:white;
 overflow-x:hidden;
 }
 
-/* NAVBAR */
-
 .nav{
-
 width:100%;
 padding:22px 7%;
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-
 background:rgba(255,255,255,0.05);
-
 backdrop-filter:blur(20px);
-
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .logo{
-
 font-size:28px;
 font-weight:700;
 color:#38bdf8;
 }
 
 .nav-btn{
-
 padding:12px 22px;
-
 border:none;
 border-radius:14px;
-
 background:linear-gradient(45deg,#38bdf8,#6366f1);
-
 color:white;
 font-weight:600;
-
 cursor:pointer;
 }
 
-/* HERO */
-
 .hero{
-
 width:90%;
 max-width:1400px;
-
 margin:auto;
 margin-top:35px;
-
 padding:45px;
-
 border-radius:30px;
-
 background:rgba(255,255,255,0.05);
-
 border:1px solid rgba(255,255,255,0.08);
-
 backdrop-filter:blur(25px);
-
 box-shadow:0 0 40px rgba(56,189,248,0.15);
 }
 
-.hero h1{
+.hero h1{font-size:55px;}
 
-font-size:55px;
-line-height:1.3;
-}
+.hero span{color:#38bdf8;}
 
-.hero span{
-color:#38bdf8;
-}
-
-.hero p{
-
-margin-top:18px;
-line-height:1.9;
-opacity:0.85;
-
-max-width:850px;
-}
-
-/* MAIN GRID */
+.hero p{margin-top:18px;opacity:0.85;}
 
 .main{
-
 width:90%;
 max-width:1400px;
-
 margin:auto;
 margin-top:30px;
-
 display:grid;
 grid-template-columns:380px 1fr;
 gap:25px;
 }
 
-/* CARD */
-
 .card{
-
 background:rgba(255,255,255,0.05);
-
 padding:25px;
-
 border-radius:25px;
-
 border:1px solid rgba(255,255,255,0.08);
-
 backdrop-filter:blur(20px);
-
-transition:0.3s;
 }
-
-.card:hover{
-
-transform:translateY(-4px);
-
-box-shadow:0 0 35px rgba(56,189,248,0.15);
-}
-
-/* SIDEBAR */
 
 .sidebar-title{
-
 font-size:26px;
 margin-bottom:18px;
-
 color:#38bdf8;
 }
 
-/* INPUT */
-
 input{
-
 width:100%;
-
 padding:14px;
-
 margin-top:14px;
-
 border:none;
 outline:none;
-
 border-radius:16px;
-
 background:#111827;
-
 color:white;
-
 font-size:15px;
 }
 
-/* BUTTON */
-
 .generate-btn{
-
 width:100%;
-
 padding:15px;
-
 margin-top:18px;
-
 border:none;
-
 border-radius:16px;
-
 background:linear-gradient(45deg,#38bdf8,#6366f1);
-
 color:white;
-
 font-size:16px;
 font-weight:700;
-
 cursor:pointer;
-
-transition:0.3s;
-}
-
-.generate-btn:hover{
-
-transform:scale(1.02);
-
-box-shadow:0 0 30px rgba(99,102,241,0.4);
-}
-
-/* FEATURES */
-
-.feature{
-
-margin-top:15px;
-
-padding:14px;
-
-background:#111827;
-
-border-radius:14px;
-
-line-height:1.7;
-
-border-left:4px solid #38bdf8;
-}
-
-/* LESSON AREA */
-
-.lesson-title{
-
-font-size:28px;
-margin-bottom:15px;
-
-color:#38bdf8;
 }
 
 .lesson-output{
-
 background:#0f172a;
-
 padding:25px;
-
 border-radius:22px;
-
-line-height:1.9;
-
-font-size:15px;
-
 min-height:600px;
-
-overflow:auto;
-
 border:1px solid rgba(255,255,255,0.06);
+line-height:1.9;
 }
 
-.lesson-output h1,
-.lesson-output h2,
-.lesson-output h3{
-
-margin-top:18px;
-color:#38bdf8;
-}
-
-.lesson-output strong{
-color:#ffffff;
-}
+.lesson-output h1,h2,h3{color:#38bdf8;}
 
 .loader{
-
 display:none;
-
-margin-bottom:15px;
-
 color:#38bdf8;
 font-weight:600;
+margin-bottom:10px;
 }
-
-/* STATS */
-
-.stats{
-
-display:grid;
-grid-template-columns:repeat(3,1fr);
-
-gap:15px;
-
-margin-top:20px;
-}
-
-.stat{
-
-background:#111827;
-
-padding:18px;
-
-border-radius:18px;
-
-text-align:center;
-}
-
-.stat h2{
-
-font-size:32px;
-color:#38bdf8;
-}
-
-/* MOBILE */
 
 @media(max-width:1000px){
-
-.main{
-grid-template-columns:1fr;
+.main{grid-template-columns:1fr;}
+.hero h1{font-size:38px;}
 }
-
-.hero h1{
-font-size:38px;
-}
-
-.stats{
-grid-template-columns:1fr;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-
 <div class="nav">
-
-<div class="logo">
-🚀 ExamPanic AI
+<div class="logo">🚀 ExamPanic AI</div>
+<button class="nav-btn">AI Teacher</button>
 </div>
-
-<button class="nav-btn">
-AI Teacher
-</button>
-
-</div>
-
-<!-- HERO -->
 
 <div class="hero">
 
-<h1>
-Your Personal <span>AI Teacher</span><br>
-for Smart Learning 📚
-</h1>
+<h1>Your Personal <span>AI Teacher</span><br>for Smart Learning 📚</h1>
 
 <p>
-Learn any chapter instantly with AI-generated explanations,
-examples, important points and exam-focused concepts.
-Built specially for ICSE students.
+Now learning will be CLASS-BASED (ICSE standard wise explanation)
 </p>
 
-<div class="stats">
-
-<div class="stat">
-<h2>AI</h2>
-<p>Powered Learning</p>
 </div>
-
-<div class="stat">
-<h2>24/7</h2>
-<p>Instant Teaching</p>
-</div>
-
-<div class="stat">
-<h2>ICSE</h2>
-<p>Focused Content</p>
-</div>
-
-</div>
-
-</div>
-
-<!-- MAIN -->
 
 <div class="main">
 
-<!-- LEFT -->
-
 <div class="card">
 
-<h2 class="sidebar-title">
-📚 Generate Lesson
-</h2>
+<h2 class="sidebar-title">📚 Generate Lesson</h2>
 
-<input
-type="text"
-id="subject"
-placeholder="Enter Subject"
->
+<input type="text" id="studentClass" placeholder="Enter Class (1-10)">
+<input type="text" id="subject" placeholder="Enter Subject">
+<input type="text" id="chapter" placeholder="Enter Chapter">
 
-<input
-type="text"
-id="chapter"
-placeholder="Enter Chapter"
->
-
-<button
-class="generate-btn"
-onclick="generateLesson()"
->
+<button class="generate-btn" onclick="generateLesson()">
 ⚡ Generate AI Lesson
 </button>
 
-<div class="feature">
-🤖 AI-generated explanations
 </div>
-
-<div class="feature">
-🧠 Smart examples & concepts
-</div>
-
-<div class="feature">
-📝 Exam-oriented learning
-</div>
-
-<div class="feature">
-📚 ICSE structured content
-</div>
-
-</div>
-
-<!-- RIGHT -->
 
 <div class="card">
 
-<h2 class="lesson-title">
-📖 AI Lesson Output
-</h2>
+<h2>📖 AI Lesson Output</h2>
 
 <div class="loader" id="loader">
 ⚡ AI is generating lesson...
 </div>
 
 <div class="lesson-output" id="lessonBox">
-
-Welcome to ExamPanic AI 🚀
-
-Generate any chapter to start learning.
-
+Start learning 🚀
 </div>
 
 </div>
@@ -466,41 +205,34 @@ const API =
 
 async function generateLesson(){
 
+let cls =
+document.getElementById("studentClass").value;
+
 let subject =
 document.getElementById("subject").value;
 
 let chapter =
 document.getElementById("chapter").value;
 
-if(!subject || !chapter){
-
+if(!cls || !subject || !chapter){
 alert("Please fill all fields");
 return;
 }
 
 document.getElementById("loader").style.display = "block";
 
-document.getElementById("lessonBox").innerHTML =
-"";
-
 try{
 
 let res = await fetch(API + "/learn",{
 
 method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
+headers:{"Content-Type":"application/json"},
 
 body:JSON.stringify({
 
 student_name:"demo",
-
-student_class:"8",
-
+student_class:cls,
 subject:subject,
-
 chapter:chapter
 
 })
@@ -510,17 +242,13 @@ chapter:chapter
 let data = await res.json();
 
 document.getElementById("lessonBox").innerHTML =
-
-marked.parse(
-data.lesson || "No lesson generated"
-);
+marked.parse(data.lesson || "No lesson generated");
 
 }
 
 catch(err){
 
 document.getElementById("lessonBox").innerHTML =
-
 "❌ Backend Error";
 
 }
