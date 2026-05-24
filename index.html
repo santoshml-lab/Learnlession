@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ExamPanic AI Textbook 📚</title>
+<title>ExamPanic AI Notes 📚</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <style>
@@ -28,7 +26,7 @@ min-height:100vh;
 
 /* HEADER */
 .header{
-padding:20px 8%;
+padding:18px 8%;
 background:rgba(255,255,255,0.05);
 display:flex;
 justify-content:space-between;
@@ -53,51 +51,43 @@ margin-top:25px;
 /* INPUTS */
 input,select{
 width:100%;
-padding:14px;
-margin-top:12px;
+padding:12px;
+margin-top:10px;
 border:none;
-border-radius:12px;
+border-radius:10px;
 background:#111827;
 color:white;
 }
 
 button{
 width:100%;
-padding:14px;
+padding:13px;
 margin-top:12px;
 border:none;
-border-radius:12px;
+border-radius:10px;
 background:linear-gradient(45deg,#38bdf8,#6366f1);
 color:white;
 font-weight:700;
 cursor:pointer;
 }
 
-/* BOOK STYLE */
-.book{
-margin-top:25px;
-}
-
-.chapter{
+/* OUTPUT */
+.output{
+margin-top:20px;
 background:rgba(255,255,255,0.05);
-margin-bottom:12px;
+padding:18px;
 border-radius:14px;
-overflow:hidden;
+min-height:300px;
+line-height:1.8;
 border:1px solid rgba(255,255,255,0.08);
 }
 
-.chapter summary{
-padding:14px;
-cursor:pointer;
+/* TEXTBOOK STYLE */
+.output h1,
+.output h2,
+.output h3{
 color:#38bdf8;
-font-weight:600;
-background:rgba(255,255,255,0.03);
-}
-
-.content{
-padding:15px;
-line-height:1.8;
-color:#e2e8f0;
+margin-top:10px;
 }
 
 .loader{
@@ -113,7 +103,7 @@ color:#38bdf8;
 <body>
 
 <div class="header">
-<div class="logo">📚 ExamPanic AI Textbook</div>
+<div class="logo">📚 ExamPanic AI Notes</div>
 </div>
 
 <div class="container">
@@ -128,7 +118,6 @@ color:#38bdf8;
 <input id="subject" placeholder="Subject">
 <input id="chapter" placeholder="Chapter">
 
-<!-- 🌐 LANGUAGE -->
 <select id="lang">
 <option value="english">English</option>
 <option value="hindi">Hindi</option>
@@ -136,9 +125,11 @@ color:#38bdf8;
 
 <button onclick="generateNotes()">Generate Notes</button>
 
-<div class="loader" id="loader">⚡ AI is building textbook...</div>
+<div class="loader" id="loader">⚡ Generating...</div>
 
-<div class="book" id="book"></div>
+<div id="output" class="output">
+Your notes will appear here...
+</div>
 
 </div>
 
@@ -160,6 +151,8 @@ return;
 
 document.getElementById("loader").style.display = "block";
 
+try{
+
 let res = await fetch(API + "/generate-notes",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
@@ -167,40 +160,26 @@ body:JSON.stringify({
 student_class:cls,
 subject:subject,
 chapter:chapter,
-language:lang   // ✅ IMPORTANT
+language:lang
 })
 });
 
 let data = await res.json();
 
-document.getElementById("loader").style.display = "none";
-
-renderBook(data.notes || "");
+if(!data.notes){
+document.getElementById("output").innerHTML = "❌ No notes received";
+return;
 }
 
-/* 📚 TEXTBOOK RENDER */
-function renderBook(text){
+document.getElementById("output").innerHTML =
+marked.parse(data.notes);
 
-let parts = text.split(/(?=📘|📌|📖|⭐|🧠|📝)/g);
+}
+catch(err){
+document.getElementById("output").innerHTML = "❌ Backend Error";
+}
 
-let html = "";
-
-parts.forEach((p,i)=>{
-
-if(p.trim().length < 5) return;
-
-html += `
-<details class="chapter" open>
-<summary>📖 Section ${i+1}</summary>
-<div class="content">
-${marked.parse(p)}
-</div>
-</details>
-`;
-
-});
-
-document.getElementById("book").innerHTML = html;
+document.getElementById("loader").style.display = "none";
 }
 
 </script>
