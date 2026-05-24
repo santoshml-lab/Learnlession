@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ExamPanic AI Teacher 🚀</title>
+<title>ExamPanic AI Notes PDF 🚀</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 
+/* SAME CSS (UNCHANGED) */
 *{
 margin:0;
 padding:0;
@@ -23,8 +27,8 @@ background:
 radial-gradient(circle at top left,#38bdf830,transparent 25%),
 radial-gradient(circle at bottom right,#6366f130,transparent 25%),
 #020617;
-min-height:100vh;
 color:white;
+min-height:100vh;
 overflow-x:hidden;
 }
 
@@ -68,21 +72,8 @@ backdrop-filter:blur(25px);
 box-shadow:0 0 40px rgba(56,189,248,0.15);
 }
 
-.hero h1{
-font-size:55px;
-line-height:1.3;
-}
-
-.hero span{
-color:#38bdf8;
-}
-
-.hero p{
-margin-top:18px;
-opacity:0.85;
-line-height:1.8;
-max-width:850px;
-}
+.hero h1{font-size:50px;}
+.hero span{color:#38bdf8;}
 
 .main{
 width:90%;
@@ -100,18 +91,6 @@ padding:25px;
 border-radius:25px;
 border:1px solid rgba(255,255,255,0.08);
 backdrop-filter:blur(20px);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-4px);
-box-shadow:0 0 35px rgba(56,189,248,0.15);
-}
-
-.sidebar-title{
-font-size:26px;
-margin-bottom:18px;
-color:#38bdf8;
 }
 
 input,select{
@@ -123,43 +102,31 @@ outline:none;
 border-radius:16px;
 background:#111827;
 color:white;
-font-size:15px;
 }
 
-.generate-btn{
+.btn{
 width:100%;
 padding:15px;
-margin-top:18px;
+margin-top:15px;
 border:none;
 border-radius:16px;
 background:linear-gradient(45deg,#38bdf8,#6366f1);
 color:white;
-font-size:16px;
 font-weight:700;
 cursor:pointer;
-transition:0.3s;
 }
 
-.generate-btn:hover{
-transform:scale(1.02);
-box-shadow:0 0 30px rgba(99,102,241,0.4);
-}
+.btn:hover{transform:scale(1.02);}
 
-.lesson-output{
+.output{
 background:#0f172a;
 padding:25px;
 border-radius:22px;
 min-height:600px;
+margin-top:15px;
 border:1px solid rgba(255,255,255,0.06);
-line-height:1.9;
+line-height:1.8;
 overflow:auto;
-}
-
-.lesson-output h1,
-.lesson-output h2,
-.lesson-output h3{
-color:#38bdf8;
-margin-top:18px;
 }
 
 .loader{
@@ -169,184 +136,73 @@ font-weight:600;
 margin-bottom:10px;
 }
 
-.action-row{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:15px;
-}
-
-.small-btn{
-padding:13px;
-border:none;
-border-radius:14px;
-background:#111827;
-color:white;
-cursor:pointer;
-font-weight:600;
-transition:0.3s;
-}
-
-.small-btn:hover{
-background:#1e293b;
-}
-
-.feature{
-margin-top:15px;
-padding:14px;
-background:#111827;
-border-radius:14px;
-line-height:1.7;
-border-left:4px solid #38bdf8;
-}
-
 @media(max-width:1000px){
-
-.main{
-grid-template-columns:1fr;
-}
-
-.hero h1{
-font-size:38px;
-}
-
-.action-row{
-grid-template-columns:1fr;
-}
-
+.main{grid-template-columns:1fr;}
+.hero h1{font-size:38px;}
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="nav">
-
-<div class="logo">
-🚀 ExamPanic AI
-</div>
-
-<button class="nav-btn">
-AI Teacher
-</button>
-
+<div class="logo">📚 ExamPanic AI Notes</div>
+<button class="nav-btn">PDF Mode</button>
 </div>
 
 <div class="hero">
-
-<h1>
-Your Personal <span>AI Teacher</span><br>
-for Smart Learning 📚
-</h1>
-
-<p>
-Now powered with PW-style interactive AI learning,
-step-by-step explanations, examples, questions and revision.
-</p>
-
+<h1>Generate <span>Class Wise AI Notes</span> 🚀</h1>
 </div>
 
 <div class="main">
 
-<!-- LEFT -->
-
 <div class="card">
 
-<h2 class="sidebar-title">
-📚 Generate Lesson
-</h2>
-
-<select id="studentClass">
-
-<option value="">Select Class</option>
-
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option>6</option>
-<option>7</option>
-<option>8</option>
-<option>9</option>
-<option>10</option>
-
+<select id="cls">
+<option value="">Class</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
 </select>
 
-<input
-type="text"
-id="subject"
-placeholder="Enter Subject"
->
+<input id="subject" placeholder="Subject">
+<input id="chapter" placeholder="Chapter">
 
-<input
-type="text"
-id="chapter"
-placeholder="Enter Chapter"
->
+<!-- 🌐 LANGUAGE ADDED -->
+<select id="lang">
+<option value="english">English</option>
+<option value="hindi">Hindi</option>
+</select>
 
-<button
-class="generate-btn"
-onclick="generateLesson()"
->
-⚡ Generate AI Lesson
+<button class="btn" onclick="generateNotes()">
+Generate Notes
 </button>
 
-<div class="action-row">
-
-<button
-class="small-btn"
-onclick="moreExample()"
->
-🧠 More Example
-</button>
-
-<button
-class="small-btn"
-onclick="nextTopic()"
->
-🚀 Next Topic
+<button class="btn" onclick="downloadPDF()">
+Download PDF
 </button>
 
 </div>
-
-<div class="feature">
-🤖 Interactive AI Teaching
-</div>
-
-<div class="feature">
-🧠 Real-life examples
-</div>
-
-<div class="feature">
-❓ AI asks understanding questions
-</div>
-
-<div class="feature">
-⭐ Quick revision included
-</div>
-
-</div>
-
-<!-- RIGHT -->
 
 <div class="card">
 
-<h2 style="color:#38bdf8;margin-bottom:15px;">
-📖 AI Lesson Output
-</h2>
+<h2>📖 Notes Output</h2>
 
 <div class="loader" id="loader">
-⚡ AI is generating lesson...
+⚡ AI is generating notes...
 </div>
 
-<div class="lesson-output" id="lessonBox">
-
-Welcome to ExamPanic AI 🚀
-
-Generate any chapter to start learning.
-
+<div id="notesBox" class="output">
+Your notes will appear here...
 </div>
 
 </div>
@@ -355,113 +211,87 @@ Generate any chapter to start learning.
 
 <script>
 
-const API =
-"https://student-learning-system-r6bi.onrender.com";
+const API = "https://student-learning-system-r6bi.onrender.com";
 
-let currentSubject = "";
-let currentChapter = "";
-let currentClass = "";
+let lastNotes = "";
 
-async function generateLesson(customPrompt=""){
+/* GENERATE NOTES */
+async function generateNotes(){
 
-let cls =
-document.getElementById("studentClass").value;
-
-let subject =
-document.getElementById("subject").value;
-
-let chapter =
-document.getElementById("chapter").value;
+let cls = document.getElementById("cls").value;
+let subject = document.getElementById("subject").value;
+let chapter = document.getElementById("chapter").value;
+let lang = document.getElementById("lang").value;
 
 if(!cls || !subject || !chapter){
-
-alert("Please fill all fields");
+alert("Fill all fields");
 return;
-
 }
-
-currentClass = cls;
-currentSubject = subject;
-currentChapter = chapter;
 
 document.getElementById("loader").style.display = "block";
 
-document.getElementById("lessonBox").innerHTML =
-"";
-
 try{
 
-let finalChapter = chapter;
-
-if(customPrompt){
-finalChapter += " " + customPrompt;
-}
-
-let res = await fetch(API + "/learn",{
-
+let res = await fetch(API + "/generate-notes",{
 method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
+headers:{"Content-Type":"application/json"},
 body:JSON.stringify({
-
 student_name:"demo",
-
 student_class:cls,
-
 subject:subject,
-
-chapter:finalChapter
-
+chapter:chapter,
+language:lang   // 🔥 NEW
 })
-
 });
 
 let data = await res.json();
 
-document.getElementById("lessonBox").innerHTML =
-
-marked.parse(
-data.lesson || "No lesson generated"
-);
-
+if(data.status !== "success"){
+document.getElementById("notesBox").innerHTML = "❌ Backend Error";
+return;
 }
 
+lastNotes = data.notes || "";
+document.getElementById("notesBox").innerHTML = marked.parse(lastNotes);
+
+}
 catch(err){
-
-document.getElementById("lessonBox").innerHTML =
-
-"❌ Backend Error";
-
+document.getElementById("notesBox").innerHTML = "❌ Backend Error";
 }
-
+finally{
 document.getElementById("loader").style.display = "none";
 }
+}
 
-/* MORE EXAMPLE */
+/* PDF */
+function downloadPDF(){
 
-function moreExample(){
-
-if(!currentChapter){
-alert("Generate lesson first");
+if(!lastNotes){
+alert("No notes to download!");
 return;
 }
 
-generateLesson("Give more simple real life examples");
+const { jsPDF } = window.jspdf;
+let doc = new jsPDF();
+
+let lines = lastNotes.split("\n");
+let y = 12;
+
+doc.setFontSize(12);
+
+lines.forEach(line => {
+
+if(y > 280){
+doc.addPage();
+y = 12;
 }
 
-/* NEXT TOPIC */
+doc.text(line, 10, y);
+y += 8;
 
-function nextTopic(){
+});
 
-if(!currentChapter){
-alert("Generate lesson first");
-return;
-}
-
-generateLesson("Continue next important concept of this chapter");
+doc.save("ExamPanic_Notes.pdf");
 }
 
 </script>
